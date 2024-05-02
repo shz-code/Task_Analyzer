@@ -9,10 +9,10 @@ namespace Task_Analyzer.Models
         public int Id { get; set; }
 
         [Required]
-        public int Title { get; set; }
+        public required string Title { get; set; }
 
-        [AllowNull]
-        public string Description { get; set; }
+        [Required]
+        public required string Description { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
@@ -23,6 +23,6 @@ namespace Task_Analyzer.Models
         [Range(1,5,ErrorMessage ="Priority must be between 1 and 5")]
         public int Priority {  get; set; }
 
-        public bool IsCompleted { get; set; }
+        public bool IsCompleted { get; set; } = false;
     }
 }
