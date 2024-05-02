@@ -10,19 +10,36 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-dark bg-dark border-bottom box-shadow mb-3">
+
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand fw-bold fs-4" asp-controller="Home" asp-action="Index">Task Analyzer</a>
-                <div class="logo">
-                    <span class="px-2 py-1 bg-light text-light rounded-circle">
-                        ok
-                    </span>
+                @* Nav Links  *@
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Task" asp-action="Index">Home</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="d-flex align-items-center gap-3 cursor-pointer">
+                    @* Profile Picture *@
+                    <div class="profile-pic">
+                        <div class="img-container">
+                            <img src="https://static.vecteezy.com/system/resources/previews/002/002/263/non_2x/black-man-with-beard-avatar-character-free-vector.jpg" alt="Alternate Text" />
+                        </div>
+                    </div>
+                    @* Ham Btn  *@
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div>
+        <main role="main">
             @RenderBody()
         </main>
     </div>

@@ -1,22 +1,70 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
+}
+
+.container {
+    max-width: 1400px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+
+.img-container {
+    width: 30px;
+}
+
+img {
+    width: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.all-tasks {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 10px;
+}
+
+@media (max-width: 1000px) {
+    .all-tasks {
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+@media (max-width: 768px) {
+    .all-tasks {
+        grid-template-columns: repeat(1,1fr);
+    }
+}
+
+.card {
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.card-pill {
+    font-weight: 600;
+    border-radius: 20px;
+    padding: 4px 13px;
+    border: 1px solid #DFDFDF;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+    text-decoration: underline;
 }
