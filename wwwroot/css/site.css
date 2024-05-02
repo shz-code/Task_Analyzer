@@ -29,10 +29,23 @@ body {
     width: 30px;
 }
 
+.img-container.banner {
+    max-width: 500px;
+    width: 100%;
+    margin: auto;
+}
+
+@media (max-width: 768px) {
+    .img-container.banner {
+        max-width: 300px;
+        width: 100%;
+        margin: auto;
+    }
+}
+
 img {
     width: 100%;
     object-fit: contain;
-    border-radius: 50%;
 }
 
 .all-tasks {
@@ -67,4 +80,10 @@ img {
 .cursor-pointer {
     cursor: pointer;
     text-decoration: underline;
+}
+
+.chart-container{
+    max-width: 300px;
+    width: 100%;
+    margin: auto;
 }

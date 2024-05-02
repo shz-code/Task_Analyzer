@@ -6,7 +6,10 @@ namespace Task_Analyzer.Controllers
     {
         public IActionResult Index()
         {
-            ViewData["Name"] = "Shanto";
+            return View();
+        }
+        public IActionResult Create()
+        {
             return View();
         }
     }

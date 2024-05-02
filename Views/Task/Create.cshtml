@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Create";
+}
+
+<section class="py-4">
+    <div class="container">
+        @* Form Validations  *@
+        <div class="alert alert-danger" role="alert">
+            Task due date can not be set to past!
+        </div>
+        @* Page Title *@
+        <div class="d-flex justify-content-between mt-4">
+            <h3 class="fw-bold">Create New Task</h3>
+            <a class="btn btn-outline-dark" asp-controller="Task" asp-action="Index">
+                Go Back
+            </a>
+        </div>
+        @* Main Content  *@
+        <div class="d-flex flex-column-reverse flex-md-row mt-4 align-items-center">
+            <form action="/" method="post" class="w-100 d-flex flex-column gap-4">
+                @* Title *@
+                <div>
+                    <label for="title" class="form-label">Task Title <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="title" name="title">
+                    <div class="form-text">Enter new task title</div>
+                </div> 
+                @* Description *@
+                <div>
+                    <label for="desc" class="form-label">Task Description <span class="text-danger">*</span></label>
+                    <textarea type="text" class="form-control" id="desc" name="desc"></textarea>
+                    <div class="form-text">Enter new task description.</div>
+                </div> 
+                @* Due Date *@
+                <div>
+                    <label for="dueDate" class="form-label">Task Due Date <span class="text-danger">*</span></label>
+                    <input type="date" class="form-control" id="dueDate" name="dueDate">
+                    <div class="form-text">Enter new task description.</div>
+                </div> 
+                @* Priority *@
+                <div>
+                    <label for="priority" class="form-label">Task Priority <span class="text-danger">*</span></label>
+                    <select class="form-select" id="priority" name="priority">
+                        <option hidden>Select Task Priority</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <div class="form-text">Enter new task priority (1 Max - 5 Min).</div>
+                </div> 
+                @* Button *@
+                <div>
+                   <button type="submit" class="btn btn-dark">Submit</button>
+                </div>
+            </form>
+            <div class="w-100">
+                <div class="img-container banner">
+                    <img src="~/images/banner.png" alt="Alternate Text" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

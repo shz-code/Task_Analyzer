@@ -2,12 +2,45 @@
     ViewData["Title"] = "Home";
 }
 
-<section class="py-2">
+<section class="py-4">
     <div class="container">
+        @* Dashboard  *@
+        <div class="d-flex flex-column-reverse flex-md-row gap-4">
+            @* Notification  *@
+            <div class="border rounded w-100 p-4">
+                <h4 class="fw-bold border-bottom pb-3">Notifications</h4>
+                <div class="pt-2">
+                    <div class="alert alert-success m-0" role="alert">
+                        No tasks pending today! Enjoy your day.
+                    </div>
+                </div>
+            </div>
+            @* Summary  *@
+            <div class="border rounded w-100 p-4">
+                <h4 class="fw-bold border-bottom pb-3">Summary</h4>
+                <div class="chart-container">
+                    <canvas id="summaryChart"></canvas>
+                </div>
+                <div class="d-flex flex-wrap justify-content-between gap-4 mt-4">
+                    <div class="text-center">
+                        <span class="fs-4 fw-bold">50</span>
+                        <p class="text-muted">Total Task Created</p>
+                    </div>
+                    <div class="text-center">
+                        <span class="fs-4 fw-bold">50</span>
+                        <p class="text-muted">Total Task Completed</p>
+                    </div>
+                    <div class="text-center">
+                        <span class="fs-4 fw-bold">50</span>
+                        <p class="text-muted">Total Task Overdue</p>
+                    </div>
+                </div>
+            </div>
+        </div>
         @* Page Title *@
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between mt-4">
             <h3 class="fw-bold">Tasks</h3>
-            <a class="btn btn-dark" asp-controller="Task" asp-action="Index">
+            <a class="btn btn-dark" asp-controller="Task" asp-action="Create">
                 Add New Task
             </a>
         </div>
@@ -36,3 +69,40 @@
         </div>
     </div>
 </section>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(() => {
+            const ctx = document.getElementById('summaryChart');
+
+            const data = {
+                labels: [
+                    'Completed',
+                    'Pending',
+                    'Overdue'
+                ],
+                datasets: [{
+                    label: 'My First Dataset',
+                    data: [300, 50, 100],
+                    backgroundColor: [
+                        'black',
+                        'gray',
+                        'brown'
+                    ],
+                    hoverOffset: 4
+                }]
+            };
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: data,
+                options: {
+                    width: 400, // Width of the chart
+                    height: 300 // Height of the chart
+                }
+            });
+
+        });
+    </script>
+}
