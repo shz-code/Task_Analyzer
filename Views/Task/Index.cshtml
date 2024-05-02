@@ -1,5 +1,7 @@
-﻿@{
+﻿@model IEnumerable<Task_Analyzer.Models.Task>
+@{
     ViewData["Title"] = "Home";
+    ViewData["Placeholder"] = "Completed";
 }
 
 <section class="py-4">
@@ -10,9 +12,28 @@
             <div class="border rounded w-100 p-4">
                 <h4 class="fw-bold border-bottom pb-3">Notifications</h4>
                 <div class="pt-2">
-                    <div class="alert alert-success m-0" role="alert">
-                        No tasks pending today! Enjoy your day.
-                    </div>
+                    @if (ViewBag.seriousTasks.Count == 0)
+                    {
+                        <div class="alert alert-success m-0" role="alert">
+                            No tasks pending today! Enjoy your day.
+                        </div>
+                    }
+                    else
+                    {
+                        @foreach (var obj in ViewBag.seriousTasks)
+                        {
+                            DateTime today = DateTime.Today;
+                            TimeSpan difference = obj.DueDate - today;
+                            int dayGap = (int)difference.TotalDays;
+                            string msg = "Due in " + dayGap + " days";
+                            if (dayGap == 1) msg = "Due in " + dayGap + " day";
+                            else if (dayGap == 0) msg = "Due Today";
+
+                            <div class="alert alert-danger m-0" role="alert">
+                                @obj.Title is pending. @msg.
+                            </div>
+                        }
+                    }
                 </div>
             </div>
             @* Summary  *@
@@ -23,15 +44,15 @@
                 </div>
                 <div class="d-flex flex-wrap justify-content-between gap-4 mt-4">
                     <div class="text-center">
-                        <span class="fs-4 fw-bold">50</span>
+                        <span class="fs-4 fw-bold">@ViewBag.total</span>
                         <p class="text-muted">Total Task Created</p>
                     </div>
                     <div class="text-center">
-                        <span class="fs-4 fw-bold">50</span>
+                        <span class="fs-4 fw-bold">@ViewBag.completed</span>
                         <p class="text-muted">Total Task Completed</p>
                     </div>
                     <div class="text-center">
-                        <span class="fs-4 fw-bold">50</span>
+                        <span class="fs-4 fw-bold">@ViewBag.overdue</span>
                         <p class="text-muted">Total Task Overdue</p>
                     </div>
                 </div>
@@ -46,26 +67,60 @@
         </div>
         @* All Tasks *@
         <div class="all-tasks mt-4 px-2">
-            @* Card *@
-            <div class="card">
-                @* Card Header *@
-                <div class="d-flex justify-content-between align-items-center pb-2">
-                    <span>Finish propject proposal</span>
-                    <span class="card-pill">Due Today</span>
-                </div>
-                @* Card Body *@
-                <div>
-                    <p class="text-muted">Prepare the project proposal for the client meeting.</p>
-                </div>
-                @* Card Footer *@
-                <div class="d-flex justify-content-between align-items-center">
-                    <span class="card-pill">Pending</span>
+            @foreach (var obj in Model)
+            {
+                DateTime today = DateTime.Today;
+                TimeSpan difference = obj.DueDate - today;
+                int dayGap = (int)difference.TotalDays;
+                string msg = "Due in " + dayGap + " days";
+                if (dayGap == 1) msg = "Due in " + dayGap + " day";
+                else if (dayGap == 0) msg = "Due Today";
+
+                @* Card *@
+                <div class="card">
+                    @* Card Header *@
+                    <div class="d-flex justify-content-between align-items-center pb-2">
+                        <span>@obj.Title</span>
+                        <span class="card-pill">
+                            @if (!obj.IsCompleted)
+                            {
+                                @msg
+                            }
+                            else
+                            {
+                                @ViewData["Placeholder"]
+                            }
+                        </span>
+                    </div>
+                    @* Card Body *@
                     <div>
-                        <span class="cursor-pointer">Mark as complete</span>
-                        <span></span>
+                        <p class="text-muted">@obj.Description</p>
+                    </div>
+                    @* Card Footer *@
+                    <div class="d-flex justify-content-between align-items-center">
+                        @if (obj.IsCompleted)
+                        {
+                            <span class="card-pill">Finished</span>
+
+                        }
+                        else
+                        {
+                            <span class="card-pill">Pending</span>
+
+                        }
+                        <div class="d-flex gap-2 align-items-center">
+                            @if (!obj.IsCompleted)
+                            {
+                                <a asp-action="UpdateStatus" asp-route-id="@obj.Id" class="cursor-pointer text-dark">
+                                    Mark as complete
+                                </a>
+                            }
+                            <span class="card-pill bg-success text-white">@obj.Priority</span>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
+
         </div>
     </div>
 </section>
@@ -84,7 +139,7 @@
                 ],
                 datasets: [{
                     label: 'Task Statistics',
-                    data: [15, 2, 3],
+                    data: [@ViewBag.completed, @ViewBag.pending, @ViewBag.overdue],
                     backgroundColor: [
                         'black',
                         'gray',
